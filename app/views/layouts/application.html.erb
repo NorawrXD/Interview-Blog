@@ -7,25 +7,42 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-
     <%= javascript_importmap_tags %>
   </head>
-  <body class="prose mx-auto">
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <body class="bg-gray-50 text-gray-800 min-h-screen font-sans">
 
-    <div>
-      <% if user_signed_in? %>
-        <%= link_to "New blog post", new_blog_post_path %>
-        <%#= link_to "Profile", edit_user_registration_path %>
-        <%= button_to "Log out", destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%#= link_to "Login", new_user_session_path %>
-        <%#= link_to "Sign Up", new_user_registration_path %>
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">
+          <%= link_to "My Blog", root_path, class: "text-blue-600 hover:text-blue-800" %>
+        </h1>
+        <nav class="flex gap-4 items-center">
+          <% if user_signed_in? %>
+            <%= link_to "New Post", new_blog_post_path, class: "text-sm text-gray-700 hover:text-blue-600" %>
+            <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm" %>
+          <% else %>
+            <%# Uncomment below if you want login/signup visible %>
+            <%#= link_to "Login", new_user_session_path, class: "text-sm text-blue-600 hover:underline" %>
+            <%#= link_to "Sign Up", new_user_registration_path, class: "text-sm text-blue-600 hover:underline" %>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 py-8 prose prose-blue">
+      <% if notice %>
+        <p class="bg-green-100 text-green-800 p-3 rounded mb-4 border border-green-200"><%= notice %></p>
       <% end %>
-    </div>
+      <% if alert %>
+        <p class="bg-red-100 text-red-800 p-3 rounded mb-4 border border-red-200"><%= alert %></p>
+      <% end %>
 
-    <%= yield %>
+      <%= yield %>
+    </main>
+
+    <footer class="text-center text-sm text-gray-500 py-6 border-t mt-12">
+      Aaron's Blog, Don't Steal!
+    </footer>
   </body>
 </html>

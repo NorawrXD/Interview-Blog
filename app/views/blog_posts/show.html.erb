@@ -1,4 +1,16 @@
-<%= link_to "Edit", edit_blog_post_path(@blog_post) if user_signed_in? %>
+<div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md space-y-6 mt-8">
 
-<h1><%= @blog_post.title %></h1>
-<%= @blog_post.body %>
+  <% if user_signed_in? %>
+    <div class="flex justify-end">
+      <%= link_to "Edit", edit_blog_post_path(@blog_post),
+            class: "text-blue-600 hover:text-blue-800 text-sm font-semibold underline" %>
+    </div>
+  <% end %>
+
+  <h1 class="text-4xl font-bold text-gray-900"><%= @blog_post.title %></h1>
+
+  <div class="prose prose-lg text-gray-800">
+    <%= simple_format(@blog_post.body) %>
+  </div>
+
+</div>
