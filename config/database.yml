@@ -1,8 +1,30 @@
+# Define default settings FIRST
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: your_app_development
+
+test:
+  <<: *default
+  database: your_app_test
+
 production:
   primary:
-    <<: *default
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
     url: <%= ENV["DATABASE_URL"] %>
-  cable:  # Explicitly define the cable database
-    <<: *default
+  
+  cable:
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
     url: <%= ENV["CABLE_DATABASE_URL"] || ENV["DATABASE_URL"] %>
     migrations_paths: db/cable_migrate
